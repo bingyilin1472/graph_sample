@@ -1,6 +1,7 @@
 # graph_sample
 
-## Project setup
+## Project setup (初始化)
+- 
 ```
 npm install
 ```

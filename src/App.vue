@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav" class="bg-o_purple-100">
+      <router-link to="/" class="text-7xl font-urw_form_family text-t_purple">Home</router-link>
+      <router-link to="/" class="text-7xl">Home</router-link>
+      <router-link to="/about" class="text-t_purple">About</router-link>
     </div>
     <router-view/>
+    <h1 class="text-6xl text-t_purple">Hello </h1>
   </div>
 </template>
+
+<script>
+// import Platform from './views/Platform'
+// export default {
+//   components: { Platform }
+// }
+</script>
 
 <style lang="scss">
 #app {
