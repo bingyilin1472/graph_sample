@@ -7,6 +7,7 @@
     </div>
     <router-view/>
     <h1 class="text-6xl text-t_purple">Hello </h1>
+    <h1 class="text-3xl text-t_orange-200">Hello </h1>
   </div>
 </template>
 
