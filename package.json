@@ -9,11 +9,13 @@
     "build-css": "tailwindcss build ./src/assets/css/tailwind.css -o ./src/assets/css/style.css"
   },
   "dependencies": {
+    "@antv/g6": "^4.2.6",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "autoprefixer": "^9.8.6",
     "core-js": "^3.6.5",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0",
+    "vanilla-js-wheel-zoom": "^6.5.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"

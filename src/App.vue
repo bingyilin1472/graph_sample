@@ -1,42 +1,46 @@
 <template>
-  <div id="app">
-    <div id="nav" class="bg-o_purple-100">
-      <router-link to="/" class="text-7xl font-urw_form_family text-t_purple">Home</router-link>
-      <router-link to="/" class="text-7xl">Home</router-link>
-      <router-link to="/about" class="text-t_purple">About</router-link>
-    </div>
-    <router-view/>
-    <h1 class="text-6xl text-t_purple">Hello </h1>
-    <h1 class="text-3xl text-t_orange-200">Hello </h1>
+  <div id="app" class="bg-o_pink px-10 pt-10 font-urw_form_family">
+    <Canvas class="">
+      <template v-slot:header>
+        <header class="p-5 border-b flex justify-center">
+              <div class="ml-6 mt-6 mb-1 text-o_purple-100 font-semibold text-5xl uppercase">
+                Knowledge Graph Testing Platform
+              </div>
+<!--          <Logo class="ml-6 mt-6 mb-1" />-->
+<!--          <NavBar />-->
+        </header>
+      </template>
+      <template v-slot:main>
+        <main class="px-12 mt-3">
+          <platform />
+        </main>
+      </template>
+      <template v-slot:footer>
+        <footer class="px-12">
+<!--          <Footer/>-->
+        </footer>
+      </template>
+    </Canvas>
   </div>
 </template>
 
 <script>
-// import Platform from './views/Platform'
-// export default {
-//   components: { Platform }
-// }
+import Platform from './views/Platform'
+import Canvas from '@/views/Canvas'
+export default {
+  components: { Platform, Canvas }
+}
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fe917d;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.content_size {
+  height: 60vh;
 }
 </style>
