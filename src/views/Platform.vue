@@ -90,6 +90,104 @@
               focus:ring-offset-2 focus:ring-o_purple-100">
         Clear
       </button>
+      <div v-if="nodeLevelActive" class="flex flex-row items-center ml-4">
+        <label id="listbox-label3" class="block text-3xl font-semibold text-o_purple-100 mr-2">
+          Up
+        </label>
+        <div class="relative inline-block text-left">
+          <div>
+            <button v-on:click="upActive = !upActive" type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm
+                    px-4 py-2 bg-white text-xl font-medium text-gray-700 hover:bg-gray-50 focus:outline-none
+                    focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-o_purple-100"
+                    id="options-menu3" aria-haspopup="true" aria-expanded="true">
+              {{ up_state }}
+              <!-- Heroicon name: solid/chevron-down -->
+              <svg class="-mr-1 ml-2 h-5 w-5"
+                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+          <!--
+            Dropdown panel, show/hide based on dropdown state.
+
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+          <div v-show="upActive" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+              <a @click="selectUpEvent"
+                 v-for="level in up_levels" :key="level"
+                 href="#" class="block px-4 py-2 text-xl text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                {{ level }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="nodeLevelActive" class="flex flex-row items-center ml-4">
+        <label id="listbox-label4" class="block text-3xl font-semibold text-o_purple-100 mr-2">
+          Down
+        </label>
+        <div class="relative inline-block text-left">
+          <div>
+            <button v-on:click="downActive = !downActive" type="button"
+                    class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm
+                    px-4 py-2 bg-white text-xl font-medium text-gray-700 hover:bg-gray-50 focus:outline-none
+                    focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-o_purple-100"
+                    id="options-menu4" aria-haspopup="true" aria-expanded="true">
+              {{ down_state }}
+              <!-- Heroicon name: solid/chevron-down -->
+              <svg class="-mr-1 ml-2 h-5 w-5"
+                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+
+          <!--
+            Dropdown panel, show/hide based on dropdown state.
+
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+          <div v-show="downActive" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+              <a @click="selectDownEvent"
+                 v-for="level in down_levels" :key="level"
+                 href="#" class="block px-4 py-2 text-xl text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                {{ level }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button v-if="nodeLevelActive"
+              type="button"
+              class=" ml-3 font-semibold
+              inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md
+              shadow-sm text-white bg-o_purple-100 hover:bg-o_purple-200 focus:outline-none focus:ring-2
+              focus:ring-offset-2 focus:ring-o_purple-100">
+        Submit
+      </button>
+      <!-- origin按鈕規劃成，會清掉node details以及up/down選單以及submit/origin按鈕-->
+      <button v-if="nodeLevelActive"
+              type="button"
+              class=" ml-3 font-semibold
+              inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md
+              shadow-sm text-white bg-o_purple-100 hover:bg-o_purple-200 focus:outline-none focus:ring-2
+              focus:ring-offset-2 focus:ring-o_purple-100">
+        Origin
+      </button>
     </div>
     <!-- content area   -->
     <div class="grid grid-cols-8 grid-rows-6 gap-1.5 mt-5 custom-h-inside">
@@ -147,7 +245,17 @@ export default {
       productCardInfo: {},
       productChainLink: '',
       nodeName: '',
-      detailActive: false
+      detailActive: false,
+      // 到時候這可以從後端雙向取得各自distance
+      nodeLevelActive: false,
+      upActive: false,
+      downActive: false,
+      up_state: 'All',
+      down_state: 'All',
+      up_levels: [1, 2, 3],
+      down_levels: [1, 2, 3, 5, 6],
+      // 下面是來用來保存為遮罩圖的temp
+      currentOriginGraph: {}
     }
   },
   created: function () {
@@ -185,12 +293,22 @@ export default {
       this.$store.state.current_graph_data = this.$store.state.graphs[this.select_state2]
       graphInstance.read(this.$store.state.current_graph_data)
     },
+    selectUpEvent (event) {
+      this.up_state = event.target.innerText
+      this.upActive = !this.upActive
+    },
+    selectDownEvent (event) {
+      this.down_state = event.target.innerText
+      this.downActive = !this.downActive
+    },
     clear () {
       this.searchBar2 = false
       this.clearActive = false
       this.detailActive = false
       this.select_state1 = 'Please select'
+      this.select_state2 = 'Please select'
       this.productCardActivate = false
+      this.nodeLevelActive = false
       this.$store.state.current_graph_data = {}
       graphInstance.read(this.$store.state.current_graph_data)
     },
@@ -241,6 +359,9 @@ export default {
         const nodeInstance = ev.item
         this.nodeName = nodeInstance._cfg.id
         this.showDetail(this.nodeName)
+        this.nodeLevelActive = true
+        this.up_state = 'All'
+        this.down_state = 'All'
       })
       function refreshDragedNodePosition (e) {
         const model = e.item.get('model')
